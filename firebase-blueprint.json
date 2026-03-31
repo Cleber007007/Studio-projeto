@@ -1,0 +1,61 @@
+{
+  "entities": {
+    "users": {
+      "title": "User Profile",
+      "description": "Stores user information, credits, and subscription plan.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "Firebase Auth UID" },
+        "email": { "type": "string", "format": "email" },
+        "displayName": { "type": "string" },
+        "credits": { "type": "integer", "description": "Available generation credits" },
+        "plan": { "type": "string", "enum": ["free", "pro", "business"] },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "User role for access control" },
+        "subscriptionStatus": { "type": "string", "enum": ["active", "inactive", "canceled"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "lastLogin": { "type": "string", "format": "date-time" }
+      },
+      "required": ["uid", "email", "credits", "plan"]
+    },
+    "payments": {
+      "title": "Payment Record",
+      "description": "Stores payment history for credits or subscriptions.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string" },
+        "type": { "type": "string" },
+        "planId": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "amount", "status", "createdAt"]
+    },
+    "generations": {
+      "title": "Image Prompt Generation",
+      "description": "Stores history of generated image prompts.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "results": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "results", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "users",
+      "description": "User profile document"
+    },
+    "/payments/{paymentId}": {
+      "schema": "payments",
+      "description": "Payment transaction record"
+    },
+    "/generations/{generationId}": {
+      "schema": "generations",
+      "description": "History of generated prompts"
+    }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "name": "CorpShot Brasil - Veo 3 Architect",
+  "description": "Gere prompts profissionais estruturados para ensaios fotográficos individuais usando IA de alta fidelidade.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
